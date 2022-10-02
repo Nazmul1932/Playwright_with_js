@@ -15,13 +15,13 @@ const { devices } = require('@playwright/test');
 const config = {
   testDir: './tests',
   /* Maximum time one test can run for. */
-  timeout: 30000,
+  timeout: 10 * 60 * 1000,
   expect: {
     /**
      * Maximum time expect() should wait for the condition to be met.
      * For example in `await expect(locator).toHaveText();`
      */
-    timeout: 10 * 1000
+    // timeout: 10 * 1000
   },
   /* Run tests in files in parallel */
   fullyParallel: true,
@@ -35,6 +35,10 @@ const config = {
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
+    video: {
+      mode: 'on', 
+      size: { width: 640, height: 480 }
+    },
     headless: false,
     /* Maximum time each action such as `click()` can take. Defaults to 0 (no limit). */
     actionTimeout: 0,
@@ -68,36 +72,36 @@ const config = {
     },
 
     /* Test against mobile viewports. */
-    // {
-    //   name: 'Mobile Chrome',
-    //   use: {
-    //     ...devices['Pixel 5'],
-    //   },
-    // },
-    // {
-    //   name: 'Mobile Safari',
-    //   use: {
-    //     ...devices['iPhone 12'],
-    //   },
-    // },
+    {
+       name: 'Mobile Chrome',
+       use: {
+         ...devices['Pixel 5'],
+       },
+     },
+     {
+       name: 'Mobile Safari',
+       use: {
+         ...devices['iPhone 12'],
+       },
+     },
 
     /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: {
-    //     channel: 'msedge',
-    //   },
-    // },
-    // {
-    //   name: 'Google Chrome',
-    //   use: {
-    //     channel: 'chrome',
-    //   },
-    // },
+     {
+       name: 'Microsoft Edge',
+       use: {
+         channel: 'msedge',
+       },
+     },
+     {
+       name: 'Google Chrome',
+       use: {
+         channel: 'chrome',
+       },
+     },
   ],
 
   /* Folder for test artifacts such as screenshots, videos, traces, etc. */
-  // outputDir: 'test-results/',
+  outputDir: 'test-results/',
 
   /* Run your local dev server before starting the tests */
   // webServer: {
